@@ -21,7 +21,7 @@ ENV JAVA_VERSION=8u212
 
 ENV JAVA_DEBIAN_VERSION=8u212-b01-1~deb9u1
 
-RUN /bin/sh -c set -ex; 		if [ ! -d /usr/share/man/man1 ]; then 		mkdir -p /usr/share/man/man1; 	fi; 		apt-get update; 	apt-get install -y --no-install-recommends 		openjdk-8-jdk="$JAVA_DEBIAN_VERSION" 	; 	rm -rf /var/lib/apt/lists/*; 		[ "$(readlink -f "$JAVA_HOME")" = "$(docker-java-home)" ]; 		update-alternatives --get-selections | awk -v home="$(readlink -f "$JAVA_HOME")" 'index($3, home) == 1 { $2 = "manual"; print | "update-alternatives --set-selections" }'; update-alternatives --query java | grep -q 'Status: manual'
+RUN /bin/sh -c set -ex; if [ ! -d/usr/share/man/man1 ]; then mkdir -p /usr/share/man/man1; fi; apt-get update; apt-get install -y --no-install-recommends openjdk-8-jdk="$JAVA_DEBIAN_VERSION" ; rm -rf /var/lib/apt/lists/*; [ "$(readlink -f "$JAVA_HOME")" = "$(docker-java-home)" ]; update-alternatives --get-selections | awk -v home="$(readlink -f "$JAVA_HOME")" 'index($3, home) == 1 { $2 = "manual"; print | "update-alternatives --set-selections" }'; update-alternatives --query java | grep -q 'Status: manual'
 
 COPY file:c3f7fd33674ad64fc2f29cf8932fd12dc6443c06f300aaabeb917121de158c40 in /usr/bin/
 
